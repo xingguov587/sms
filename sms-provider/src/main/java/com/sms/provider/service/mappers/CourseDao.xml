@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sms.provider.dao.CourseDao">
+  <resultMap id="BaseResultMap" type="com.sms.api.pojo.Course">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="course_no" jdbcType="VARCHAR" property="courseNo" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="course_url" jdbcType="VARCHAR" property="courseUrl" />
+    <result column="credit" jdbcType="DECIMAL" property="credit" />
+    <result column="introduce" jdbcType="VARCHAR" property="introduce"/>
+    <result column="teacher" jdbcType="INTEGER" property="teacher"/>
+    <result column="target" jdbcType="INTEGER" property="target"/>
+    <result column="min_num" jdbcType="INTEGER" property="minNum"/>
+    <result column="max_num" jdbcType="INTEGER" property="maxNum"/>
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="reviser" jdbcType="INTEGER" property="reviser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="data_status" jdbcType="CHAR" property="dataStatus" />
+    <result column="extend_one" jdbcType="VARCHAR" property="extendOne" />
+    <result column="extend_two" jdbcType="VARCHAR" property="extendTwo" />
+    <result column="extend_three" jdbcType="VARCHAR" property="extendThree" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, course_no, `name`, course_url, credit, introduce, teacher, target, min_num, max_num,
+    creator, create_time, reviser, update_time, data_status, extend_one, extend_two, extend_three
+  </sql>
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from t_course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sms.api.pojo.Course">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_course (course_no, `name`, course_url,
+      credit, introduce, teacher, target, min_num, max_num,
+      creator, create_time, reviser, update_time, data_status,
+      extend_one, extend_two, extend_three
+      )
+    values (#{courseNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{courseUrl,jdbcType=VARCHAR}, 
+      #{credit,jdbcType=DECIMAL}, #{introduce,jdbcType=VARCHAR}, #{teacher,jdbcType=INTEGER},
+      #{target,jdbcType=INTEGER}, #{minNum,jdbcType=INTEGER}, #{maxNum,jdbcType=INTEGER},
+      #{creator,jdbcType=INTEGER}, now(), #{reviser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, '001',
+      #{extendOne,jdbcType=VARCHAR}, #{extendTwo,jdbcType=VARCHAR}, #{extendThree,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <update id="update" parameterType="com.sms.api.pojo.Course">
+    update t_course
+    <set>
+      <if test="courseNo != null">
+        course_no = #{courseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="courseUrl != null">
+        course_url = #{courseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null">
+        credit = #{credit,jdbcType=DECIMAL},
+      </if>
+      <if test="introduce != null">
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher != null">
+        teacher = #{teacher,jdbcType=INTEGER},
+      </if>
+      <if test="target != null">
+        target = #{target,jdbcType=INTEGER},
+      </if>
+      <if test="minNum != null">
+        min_num = #{minNum,jdbcType=INTEGER},
+      </if>
+      <if test="maxNum != null">
+        max_num = #{maxNum,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviser != null">
+        reviser = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataStatus != null">
+        data_status = #{dataStatus,jdbcType=CHAR},
+      </if>
+      <if test="extendOne != null">
+        extend_one = #{extendOne,jdbcType=VARCHAR},
+      </if>
+      <if test="extendTwo != null">
+        extend_two = #{extendTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="extendThree != null">
+        extend_three = #{extendThree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sms.provider.dao.UserDao">
+  <resultMap id="BaseResultMap" type="com.sms.api.pojo.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="sno" jdbcType="VARCHAR" property="sno" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="head_img" jdbcType="VARCHAR" property="headImg" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="reviser" jdbcType="INTEGER" property="reviser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="data_status" jdbcType="CHAR" property="dataStatus" />
+    <result column="extend_one" jdbcType="VARCHAR" property="extendOne" />
+    <result column="extend_two" jdbcType="VARCHAR" property="extendTwo" />
+    <result column="extend_three" jdbcType="VARCHAR" property="extendThree" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, role_id, pid, nick_name, sex, sno, job, head_img, phone, email, pass_word, creator, 
+    create_time, reviser, update_time, data_status, extend_one, extend_two, extend_three
+  </sql>
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sms.api.pojo.User">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user (role_id, pid, nick_name, 
+      sex, sno, job, head_img, 
+      phone, email, pass_word, 
+      creator, create_time, reviser, 
+      update_time, data_status, extend_one, 
+      extend_two, extend_three)
+    values (#{roleId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{sno,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, now(), #{reviser,jdbcType=INTEGER},
+      #{updateTime,jdbcType=TIMESTAMP}, '001', #{extendOne,jdbcType=VARCHAR},
+      #{extendTwo,jdbcType=VARCHAR}, #{extendThree,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="update" parameterType="com.sms.api.pojo.User">
+    update t_user
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="sno != null">
+        sno = #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null">
+        head_img = #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        pass_word = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviser != null">
+        reviser = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataStatus != null">
+        data_status = #{dataStatus,jdbcType=CHAR},
+      </if>
+      <if test="extendOne != null">
+        extend_one = #{extendOne,jdbcType=VARCHAR},
+      </if>
+      <if test="extendTwo != null">
+        extend_two = #{extendTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="extendThree != null">
+        extend_three = #{extendThree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="List_Query_Sql">
+    <where>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="sno != null">
+        sno = #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        pass_word = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        reviser = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="dataStatus != null">
+        data_status = #{dataStatus,jdbcType=CHAR},
+      </if>
+    </where>
+  </sql>
+
+  <select id="getList" parameterType="com.sms.api.vo.UserVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user
+    <include refid="List_Query_Sql"/>
+    <include refid="global.mysql-pagination"/>
+  </select>
+
+  <select id="count" parameterType="com.sms.api.vo.UserVo" resultType="java.lang.Integer">
+    select
+    count(1)
+    from t_user
+    <include refid="List_Query_Sql"/>
+  </select>
+
+</mapper>

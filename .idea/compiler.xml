@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="sms-common" />
+        <module name="sms-api" />
+        <module name="sms-consumer" />
+        <module name="sms-provider" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="sms-nacos" target="1.8" />
+      <module name="sms-nacos-server" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="sms-api" options="-parameters" />
+      <module name="sms-common" options="-parameters" />
+      <module name="sms-consumer" options="-parameters" />
+      <module name="sms-nacos" options="-parameters" />
+      <module name="sms-provider" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sms.provider.dao.GradeDimDao">
+  <resultMap id="BaseResultMap" type="com.sms.api.pojo.GradeDim">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="reviser" jdbcType="INTEGER" property="reviser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="extend_one" jdbcType="VARCHAR" property="extendOne" />
+    <result column="extend_two" jdbcType="VARCHAR" property="extendTwo" />
+    <result column="data_status" jdbcType="CHAR" property="dataStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, creator, create_time, reviser, update_time, extend_one, extend_two, data_status
+  </sql>
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_grade_dim
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from t_grade_dim
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sms.api.pojo.GradeDim">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_grade_dim (`name`, creator, create_time,
+      reviser, update_time, extend_one, 
+      extend_two, data_status)
+    values (#{name,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{reviser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{extendOne,jdbcType=VARCHAR}, 
+      #{extendTwo,jdbcType=VARCHAR}, '001')
+  </insert>
+
+  <update id="update" parameterType="com.sms.api.pojo.GradeDim">
+    update t_grade_dim
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviser != null">
+        reviser = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extendOne != null">
+        extend_one = #{extendOne,jdbcType=VARCHAR},
+      </if>
+      <if test="extendTwo != null">
+        extend_two = #{extendTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="dataStatus != null">
+        data_status = #{dataStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_grade_dim
+  </select>
+
+</mapper>
