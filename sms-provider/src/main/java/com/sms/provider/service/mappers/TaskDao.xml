@@ -106,25 +106,25 @@
   <sql id="List_Query_Sql">
     <where>
       <if test="name != null">
-        t.`name` = #{name,jdbcType=VARCHAR},
+        AND t.`name` = #{name,jdbcType=VARCHAR}
       </if>
       <if test="startTime != null">
-        t.start_time = #{startTime,jdbcType=TIMESTAMP},
+        AND t.start_time = #{startTime,jdbcType=TIMESTAMP}
       </if>
       <if test="endTime != null">
-        t.end_time = #{endTime,jdbcType=TIMESTAMP},
+        AND t.end_time = #{endTime,jdbcType=TIMESTAMP}
       </if>
       <if test="grade != null">
-        t.grade = #{grade,jdbcType=INTEGER},
+        AND t.grade = #{grade,jdbcType=INTEGER}
       </if>
       <if test="creator != null">
-        t.creator = #{creator,jdbcType=INTEGER},
+        AND t.creator = #{creator,jdbcType=INTEGER}
       </if>
       <if test="reviser != null">
-        t.reviser = #{reviser,jdbcType=INTEGER},
+        AND t.reviser = #{reviser,jdbcType=INTEGER}
       </if>
       <if test="dataStatus != null">
-        t.data_status = #{dataStatus,jdbcType=CHAR},
+        AND t.data_status = #{dataStatus,jdbcType=CHAR}
       </if>
     </where>
   </sql>

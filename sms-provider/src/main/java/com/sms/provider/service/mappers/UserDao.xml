@@ -11,6 +11,7 @@
     <result column="job" jdbcType="VARCHAR" property="job" />
     <result column="head_img" jdbcType="VARCHAR" property="headImg" />
     <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="grade" jdbcType="INTEGER" property="grade"/>
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
     <result column="creator" jdbcType="INTEGER" property="creator" />
@@ -23,7 +24,7 @@
     <result column="extend_three" jdbcType="VARCHAR" property="extendThree" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, role_id, pid, nick_name, sex, sno, job, head_img, phone, email, pass_word, creator, 
+    id, role_id, pid, nick_name, sex, sno, job, head_img, phone, grade, email, pass_word, creator,
     create_time, reviser, update_time, data_status, extend_one, extend_two, extend_three
   </sql>
   <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -47,13 +48,13 @@
     </selectKey>
     insert into t_user (role_id, pid, nick_name, 
       sex, sno, job, head_img, 
-      phone, email, pass_word, 
+      phone, grade, email, pass_word,
       creator, create_time, reviser, 
       update_time, data_status, extend_one, 
       extend_two, extend_three)
     values (#{roleId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{sno,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=CHAR}, #{grade,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR},
       #{creator,jdbcType=INTEGER}, now(), #{reviser,jdbcType=INTEGER},
       #{updateTime,jdbcType=TIMESTAMP}, '001', #{extendOne,jdbcType=VARCHAR},
       #{extendTwo,jdbcType=VARCHAR}, #{extendThree,jdbcType=VARCHAR})
@@ -85,6 +86,9 @@
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=INTEGER},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -123,40 +127,43 @@
   <sql id="List_Query_Sql">
     <where>
       <if test="roleId != null">
-        role_id = #{roleId,jdbcType=INTEGER},
+        AND role_id = #{roleId,jdbcType=INTEGER}
       </if>
       <if test="pid != null">
-        pid = #{pid,jdbcType=INTEGER},
+        AND pid = #{pid,jdbcType=INTEGER}
       </if>
       <if test="nickName != null">
-        nick_name = #{nickName,jdbcType=VARCHAR},
+        AND nick_name = #{nickName,jdbcType=VARCHAR}
       </if>
       <if test="sex != null">
-        sex = #{sex,jdbcType=INTEGER},
+        AND sex = #{sex,jdbcType=INTEGER}
       </if>
       <if test="sno != null">
-        sno = #{sno,jdbcType=VARCHAR},
+        AND sno = #{sno,jdbcType=VARCHAR}
       </if>
       <if test="job != null">
-        job = #{job,jdbcType=VARCHAR},
+        AND job = #{job,jdbcType=VARCHAR}
       </if>
       <if test="phone != null">
-        phone = #{phone,jdbcType=CHAR},
+        AND phone = #{phone,jdbcType=CHAR}
+      </if>
+      <if test="grade != null">
+        AND grade = #{grade,jdbcType=INTEGER}
       </if>
       <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+        AND email = #{email,jdbcType=VARCHAR}
       </if>
       <if test="passWord != null">
-        pass_word = #{passWord,jdbcType=VARCHAR},
+        AND pass_word = #{passWord,jdbcType=VARCHAR}
       </if>
       <if test="creator != null">
-        creator = #{creator,jdbcType=INTEGER},
+        AND creator = #{creator,jdbcType=INTEGER}
       </if>
       <if test="reviser != null">
-        reviser = #{reviser,jdbcType=INTEGER},
+        AND reviser = #{reviser,jdbcType=INTEGER}
       </if>
       <if test="dataStatus != null">
-        data_status = #{dataStatus,jdbcType=CHAR},
+        AND data_status = #{dataStatus,jdbcType=CHAR}
       </if>
     </where>
   </sql>

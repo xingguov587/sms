@@ -32,6 +32,8 @@ public class UserVo extends Page {
 
     private Integer reviser;
 
+    private String dataStatus;
+
     public Integer getId() {
         return id;
     }
@@ -142,5 +144,13 @@ public class UserVo extends Page {
 
     public void setReviser(Integer reviser) {
         this.reviser = reviser;
+    }
+
+    public String getDataStatus() {
+        return dataStatus;
+    }
+
+    public void setDataStatus(String dataStatus) {
+        this.dataStatus = dataStatus;
     }
 }
