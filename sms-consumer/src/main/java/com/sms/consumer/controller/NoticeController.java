@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class NoticeController {
 
-    @DubboReference
+    @DubboReference(timeout = 5000)
     NoticeService noticeService;
 
 }

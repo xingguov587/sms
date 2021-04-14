@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserTaskController {
 
-    @DubboReference
+    @DubboReference(timeout = 5000)
     UserTaskService userTaskService;
 
 }

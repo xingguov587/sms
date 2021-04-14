@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @DubboReference
+    @DubboReference(timeout = 5000)
     HelloService helloService;
 
     @GetMapping("/test")

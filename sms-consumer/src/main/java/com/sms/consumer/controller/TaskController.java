@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 public class TaskController {
 
-    @DubboReference
+    @DubboReference(timeout = 5000)
     TaskService taskService;
 
     @DubboReference

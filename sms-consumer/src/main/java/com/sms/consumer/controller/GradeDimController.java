@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 public class GradeDimController {
 
-    @DubboReference
+    @DubboReference(timeout = 5000)
     GradeDimService gradeDimService;
 
     @GetMapping("all")

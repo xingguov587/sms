@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class CourseController {
 
-    @DubboReference
+    @DubboReference(timeout = 5000)
     CourseService courseService;
 
     /**

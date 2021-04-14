@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    @DubboReference
+    @DubboReference(timeout = 5000)
     UserService userService;
 
     @GetMapping("/all")
