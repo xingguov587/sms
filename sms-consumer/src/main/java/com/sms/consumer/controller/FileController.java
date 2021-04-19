@@ -3,13 +3,16 @@ package com.sms.consumer.controller;
 import com.sms.api.ResponseMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 
 /**
@@ -37,5 +40,33 @@ public class FileController {
             e.printStackTrace();
             return ResponseMessage.error(500,"文件上传失败");
         }
+    }
+
+    /**
+     * 文件下载
+     * @param response
+     * @param fileName
+     * @return
+     */
+    @GetMapping("dowload")
+    public ResponseMessage<Integer> download(HttpServletResponse response,String fileName){
+        File file = new File(fileName);
+        if (file.exists()) {
+            try (
+                FileInputStream fis = new FileInputStream(file);
+                BufferedInputStream bis = new BufferedInputStream(fis)) {
+                response.setContentType("application/force-download");
+                //保证下载时文件名为指定文件名，避免中文文件名乱码
+                response.addHeader("Content-Disposition", "attachment;fileName="
+                        + URLEncoder.encode(file.getName(), "utf-8"));
+                OutputStream os = response.getOutputStream();
+                StreamUtils.copy(bis, os);
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                e.printStackTrace();
+                return ResponseMessage.error(500,"下载失败");
+            }
+        }
+        return ResponseMessage.success(1);
     }
 }
