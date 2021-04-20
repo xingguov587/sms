@@ -5,10 +5,13 @@ import com.sms.api.ResponseMessage;
 import com.sms.api.pojo.User;
 import com.sms.api.service.UserService;
 import com.sms.api.vo.UserVo;
+import com.sms.consumer.confg.Md5PasswordEncoder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
@@ -58,6 +61,36 @@ public class UserController {
             log.error(JSONObject.toJSONString(user));
             return ResponseMessage.error(500,"修改失败");
         }
+    }
+
+    /**
+     * 登录
+     * @param session
+     * @param userName
+     * @param password
+     * @return
+     */
+    @GetMapping("login")
+    public ResponseMessage<Integer> login(HttpSession session, String userName, String password){
+        password = Md5PasswordEncoder.getInstance().encode(password);
+        User user = userService.login(userName,password);
+        if(user != null){
+            session.setAttribute("loginUser",user);
+            return ResponseMessage.success(1);
+        }else {
+            return ResponseMessage.error(401,"用户名密码错误");
+        }
+    }
+
+    /**
+     * 退出
+     * @param session
+     * @return
+     */
+    @GetMapping("logout")
+    public ResponseMessage<Integer> logout(HttpSession session) {
+        session.invalidate();
+        return ResponseMessage.success(1);
     }
 
 

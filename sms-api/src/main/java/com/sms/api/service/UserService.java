@@ -12,4 +12,6 @@ public interface UserService extends BaseService<User>{
     int count(UserVo vo);
 
     User getUserByName(String nickName);
+
+    User login(String nickName,String password);
 }

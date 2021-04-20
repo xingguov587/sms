@@ -190,4 +190,11 @@
     where nick_name = #{nickName}
   </select>
 
+  <select id="login" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user
+    where nick_name = #{nickName} and password = #{password}
+  </select>
+
 </mapper>

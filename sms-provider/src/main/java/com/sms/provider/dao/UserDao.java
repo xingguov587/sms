@@ -13,4 +13,6 @@ public interface UserDao extends BaseDao<User>{
     int count(UserVo vo);
 
     User getUserByName(@Param("nickName") String nickName);
+
+    User login(@Param("nickName")String nickName, @Param("password")String password);
 }

@@ -66,4 +66,9 @@ public class UserServiceImpl implements UserService {
     public User getUserByName(String nickName) {
         return userDao.getUserByName(nickName);
     }
+
+    @Override
+    public User login(String nickName, String password) {
+        return userDao.login(nickName,password);
+    }
 }
