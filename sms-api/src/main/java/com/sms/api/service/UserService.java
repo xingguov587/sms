@@ -10,4 +10,6 @@ public interface UserService extends BaseService<User>{
     List<User> getList(UserVo vo);
 
     int count(UserVo vo);
+
+    User getUserByName(String nickName);
 }

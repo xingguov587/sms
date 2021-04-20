@@ -61,4 +61,9 @@ public class UserServiceImpl implements UserService {
     public int count(UserVo vo) {
         return userDao.count(vo);
     }
+
+    @Override
+    public User getUserByName(String nickName) {
+        return userDao.getUserByName(nickName);
+    }
 }

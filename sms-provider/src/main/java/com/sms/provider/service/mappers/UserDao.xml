@@ -182,5 +182,12 @@
     from t_user
     <include refid="List_Query_Sql"/>
   </select>
+  
+  <select id="getUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user
+    where nick_name = #{nickName}
+  </select>
 
 </mapper>
