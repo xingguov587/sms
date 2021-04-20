@@ -194,7 +194,7 @@
     select
     <include refid="Base_Column_List"/>
     from t_user
-    where nick_name = #{nickName} and password = #{password}
+    where nick_name = #{nickName} and pass_word = #{password}
   </select>
 
 </mapper>
