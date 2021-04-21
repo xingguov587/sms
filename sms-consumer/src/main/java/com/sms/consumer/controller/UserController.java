@@ -66,14 +66,13 @@ public class UserController {
     /**
      * 登录
      * @param session
-     * @param userName
-     * @param password
+     * @param loginUser
      * @return
      */
-    @GetMapping("login")
-    public ResponseMessage<Integer> login(HttpSession session, String userName, String password){
-        password = Md5PasswordEncoder.getInstance().encode(password);
-        User user = userService.login(userName,password);
+    @PostMapping("login")
+    public ResponseMessage<Integer> login(HttpSession session, @RequestBody User loginUser){
+        String password = Md5PasswordEncoder.getInstance().encode(loginUser.getPassWord());
+        User user = userService.login(loginUser.getSno(),password);
         if(user != null){
             session.setAttribute("loginUser",user);
             return ResponseMessage.success(1);

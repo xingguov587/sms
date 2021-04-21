@@ -14,5 +14,5 @@ public interface UserDao extends BaseDao<User>{
 
     User getUserByName(@Param("nickName") String nickName);
 
-    User login(@Param("nickName")String nickName, @Param("password")String password);
+    User login(@Param("sno")String sno, @Param("password")String password);
 }

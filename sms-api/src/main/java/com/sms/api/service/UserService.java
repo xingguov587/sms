@@ -13,5 +13,5 @@ public interface UserService extends BaseService<User>{
 
     User getUserByName(String nickName);
 
-    User login(String nickName,String password);
+    User login(String sno,String password);
 }
