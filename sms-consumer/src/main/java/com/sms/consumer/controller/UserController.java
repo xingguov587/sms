@@ -75,7 +75,7 @@ public class UserController {
         User user = userService.login(loginUser.getSno(),password);
         if(user != null){
             session.setAttribute("loginUser",user);
-            return ResponseMessage.success(1);
+            return ResponseMessage.success(user);
         }else {
             return ResponseMessage.error(401,"用户名密码错误");
         }
