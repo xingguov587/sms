@@ -79,4 +79,21 @@ public class TaskController {
         }
     }
 
+    /**
+     * 更新
+     * @param task
+     * @return
+     */
+    @PostMapping("update")
+    public ResponseMessage<Integer> update(@RequestBody Task task){
+        try {
+            return ResponseMessage.success(taskService.update(task));
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error(JSONObject.toJSONString(task));
+            return ResponseMessage.error(500,"更新失败");
+        }
+    }
+
+
 }
